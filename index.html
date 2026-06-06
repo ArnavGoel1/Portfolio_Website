@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Arnav Goel - BCA Developer & Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0A;
+  --bg2:#111111;
+  --bg3:#1A1A1A;
+  --line:#2A2A2A;
+  --line2:#333;
+  --ink:#F0EDE8;
+  --ink2:#A8A49E;
+  --ink3:#6B6762;
+  --accent:#E8D5A3;
+  --accent2:#C4A96B;
+  --blue:#2563EB;
+  --green:#22C55E;
+  --red:#EF4444;
+  --font-display:'Bebas Neue',sans-serif;
+  --font-body:'Instrument Sans',sans-serif;
+  --font-serif:'Instrument Serif',serif;
+  --font-mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  line-height:1.6;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CURSOR */
+.cursor{
+  position:fixed;width:10px;height:10px;
+  background:var(--accent);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s,width 0.2s,height 0.2s,opacity 0.2s;
+  mix-blend-mode:difference;
+}
+.cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(232,213,163,0.4);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform 0.18s ease,width 0.25s,height 0.25s;
+}
+.cursor.hover{width:6px;height:6px}
+.cursor-ring.hover{width:52px;height:52px;border-color:rgba(232,213,163,0.6)}
+
+/* PROGRESS */
+#prog{
+  position:fixed;top:0;left:0;height:2px;
+  background:linear-gradient(90deg,var(--accent2),var(--accent));
+  z-index:1000;transition:width 0.08s;border-radius:0 2px 2px 0;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(to bottom,rgba(10,10,10,0.95),transparent);
+}
+.nav-logo{
+  font-family:var(--font-display);
+  font-size:22px;letter-spacing:0.05em;
+  color:var(--ink);text-decoration:none;
+}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;gap:4px;}
+.nav-link{
+  font-size:12.5px;font-weight:500;letter-spacing:0.03em;
+  color:var(--ink3);text-decoration:none;
+  padding:6px 14px;border-radius:4px;
+  transition:color 0.2s,background 0.2s;
+}
+.nav-link:hover{color:var(--accent);background:rgba(232,213,163,0.06);}
+.nav-cta{
+  font-size:12px;font-weight:600;
+  background:var(--accent);color:#0A0A0A;
+  border:none;border-radius:6px;
+  padding:8px 18px;cursor:none;
+  font-family:var(--font-body);
+  letter-spacing:0.03em;
+  transition:opacity 0.2s,transform 0.2s;
+  text-decoration:none;
+}
+.nav-cta:hover{opacity:0.85;transform:translateY(-1px);}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:0 48px 64px;
+  position:relative;overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(42,42,42,0.3) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(42,42,42,0.3) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);
+}
+.hero-noise{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hero-tag{
+  font-family:var(--font-mono);
+  font-size:11px;color:var(--accent2);
+  letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:20px;
+  opacity:0;animation:fadeUp 0.6s 0.2s ease both;
+}
+.hero-name{
+  font-family:var(--font-display);
+  font-size:clamp(72px,12vw,160px);
+  line-height:0.9;letter-spacing:-0.01em;
+  color:var(--ink);
+  opacity:0;animation:fadeUp 0.7s 0.35s ease both;
+}
+.hero-name .outline{
+  -webkit-text-stroke:1px var(--ink3);
+  color:transparent;
+}
+.hero-name .gold{color:var(--accent);}
+.hero-bottom{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-top:32px;
+  opacity:0;animation:fadeUp 0.6s 0.55s ease both;
+}
+.hero-desc{
+  max-width:420px;
+  font-size:15px;color:var(--ink2);line-height:1.65;
+}
+.hero-desc strong{color:var(--ink);font-weight:500;}
+.hero-actions{display:flex;gap:10px;align-items:center;}
+.btn-ghost{
+  font-size:13px;font-weight:500;
+  color:var(--ink2);border:1px solid var(--line2);
+  background:transparent;border-radius:6px;
+  padding:10px 20px;cursor:none;
+  font-family:var(--font-body);
+  transition:all 0.2s;text-decoration:none;
+}
+.btn-ghost:hover{color:var(--ink);border-color:var(--ink3);}
+.hero-scroll{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  opacity:0;animation:fadeUp 0.5s 0.9s ease both;
+}
+.hero-scroll-text{font-family:var(--font-mono);font-size:9px;letter-spacing:0.12em;color:var(--ink3);text-transform:uppercase;}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--ink3),transparent);}
+
+/* SECTION COMMON */
+section{padding:96px 48px;max-width:1100px;margin:0 auto;}
+.sec-label{
+  font-family:var(--font-mono);font-size:10px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent2);
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:16px;
+}
+.sec-label::before{content:'';width:28px;height:1px;background:var(--accent2);}
+.sec-title{
+  font-family:var(--font-display);
+  font-size:clamp(40px,6vw,72px);
+  letter-spacing:0.01em;line-height:0.95;
+  color:var(--ink);margin-bottom:8px;
+}
+.sec-sub{
+  font-size:15px;color:var(--ink2);
+  max-width:560px;line-height:1.65;
+  margin-bottom:48px;
+}
+
+/* ABOUT */
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:48px;align-items:start;
+  border-top:1px solid var(--line);
+  padding-top:48px;
+}
+.about-bio{font-size:15px;color:var(--ink2);line-height:1.75;}
+.about-bio p+p{margin-top:14px;}
+.about-bio strong{color:var(--ink);font-weight:500;}
+.about-right{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+
+.about-stat{
+  border-left:2px solid var(--accent2);
+  padding-left:16px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-top:24px;
+  padding-bottom:24px;
+  border-bottom:1px solid var(--line);
+}
+.about-stat-num{
+  font-family:var(--font-display);font-size:40px;
+  color:var(--accent);line-height:1;
+}
+.about-stat-label{font-size:12px;color:var(--ink3);margin-top:2px;}
+
+/* SKILLS */
+.skills-full{border-top:1px solid var(--line);padding-top:48px;}
+.skill-row{
+  display:flex;align-items:center;
+  border-bottom:1px solid var(--line);
+  padding:18px 0;gap:24px;
+}
+.skill-cat{
+  font-family:var(--font-mono);font-size:10px;
+  color:var(--ink3);letter-spacing:0.1em;
+  text-transform:uppercase;width:100px;flex-shrink:0;
+}
+.skill-pills{display:flex;gap:8px;flex-wrap:wrap;}
+.pill{
+  font-size:12.5px;font-weight:500;
+  background:var(--bg3);border:1px solid var(--line2);
+  color:var(--ink2);border-radius:5px;
+  padding:5px 12px;
+  transition:all 0.2s;
+}
+.pill:hover{background:rgba(232,213,163,0.08);border-color:var(--accent2);color:var(--accent);}
+.pill.hot{border-color:rgba(196,169,107,0.4);color:var(--accent2);}
+
+/* EXPERIENCE */
+.exp-list{border-top:1px solid var(--line);padding-top:0;}
+.exp-item{
+  display:grid;grid-template-columns:180px 1fr;
+  gap:32px;
+  border-bottom:1px solid var(--line);
+  padding:32px 0;
+  transition:background 0.2s;
+}
+.exp-item:hover{background:rgba(255,255,255,0.01);}
+.exp-date{
+  font-family:var(--font-mono);font-size:11px;
+  color:var(--ink3);padding-top:4px;
+  letter-spacing:0.05em;
+}
+.exp-content{}
+.exp-role{
+  font-family:var(--font-body);font-size:16px;
+  font-weight:600;color:var(--ink);margin-bottom:3px;
+}
+.exp-company{
+  font-size:13px;color:var(--accent2);
+  margin-bottom:10px;font-style:italic;
+  font-family:var(--font-serif);
+}
+.exp-desc{font-size:13.5px;color:var(--ink2);line-height:1.65;}
+
+/* PROJECTS */
+.projects-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:1px;background:var(--line);
+  border:1px solid var(--line);
+  border-radius:16px;overflow:hidden;
+}
+.proj-card{
+  background:var(--bg);padding:32px;
+  transition:background 0.25s;
+  position:relative;overflow:hidden;
+  text-decoration:none;display:flex, flex-direction:column;
+}
+.proj-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(232,213,163,0.06),transparent 60%);
+  opacity:0;transition:opacity 0.3s;
+}
+.proj-card:hover::before{opacity:1;}
+.proj-card:hover{background:var(--bg2);}
+.proj-num{
+  font-family:var(--font-mono);font-size:10px;
+  color:var(--ink3);letter-spacing:0.1em;
+  margin-bottom:16px;
+}
+.proj-title{
+  font-family:var(--font-display);
+  font-size:28px;letter-spacing:0.02em;
+  color:var(--ink);margin-bottom:8px;line-height:1;
+}
+.proj-desc{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:16px;}
+.proj-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.proj-tag{
+  font-size:10.5px;padding:3px 9px;border-radius:4px;
+  border:1px solid var(--line2);color:var(--ink3);
+  font-family:var(--font-mono);
+}
+.proj-arrow{
+  position:absolute;top:28px;right:28px;
+  font-size:16px;color:var(--ink3);
+  transition:transform 0.2s,color 0.2s;
+}
+.proj-card:hover .proj-arrow{transform:translate(3px,-3px);color:var(--accent);}
+
+/* FEATURED CASE STUDY */
+.case-study-banner{
+  margin:0 -48px;
+  background:var(--bg2);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:64px 48px;
+  display:grid;grid-template-columns:1fr 420px;
+  gap:56px;align-items:center;
+  position:relative;overflow:hidden;
+}
+.cs-glow{
+  position:absolute;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(37,99,235,0.08),transparent 70%);
+  top:-100px;right:-100px;
+  pointer-events:none;
+}
+.cs-eyebrow{
+  font-family:var(--font-mono);font-size:10px;
+  color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;margin-bottom:14px;
+}
+.cs-eyebrow::before{content:'';width:20px;height:1px;background:var(--blue);}
+.cs-title{
+  font-family:var(--font-display);
+  font-size:54px;line-height:0.95;
+  letter-spacing:0.01em;color:var(--ink);
+  margin-bottom:14px;
+}
+.cs-title span{color:var(--blue);}
+.cs-desc{font-size:14px;color:var(--ink2);line-height:1.7;margin-bottom:24px;max-width:480px;}
+.cs-stats{
+  display:flex;gap:24px;margin-bottom:28px;flex-wrap:wrap;
+}
+.cs-stat{
+  display:flex;flex-direction:column;
+  border-left:2px solid var(--line2);padding-left:12px;
+}
+.cs-stat-val{
+  font-family:var(--font-display);font-size:26px;
+  color:var(--blue);line-height:1;
+}
+.cs-stat-label{font-size:10px;color:var(--ink3);margin-top:2px;font-family:var(--font-mono);}
+.cs-btns{display:flex;gap:10px;}
+.btn-blue{
+  background:var(--blue);color:white;
+  border:none;border-radius:7px;
+  padding:10px 20px;font-size:13px;
+  font-weight:600;cursor:none;
+  font-family:var(--font-body);
+  transition:opacity 0.2s;text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-blue:hover{opacity:0.85;}
+
+/* phone mockup in CS banner */
+.cs-phone-wrap{
+  display:flex;justify-content:center;align-items:center;
+  gap:14px;
+}
+.cs-phone{
+  width:130px;
+  background:#181818;
+  border-radius:22px;
+  padding:6px;
+  box-shadow:0 24px 56px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);
+  transition:transform 0.3s;
+}
+.cs-phone:hover{transform:translateY(-6px);}
+.cs-phone:nth-child(2){transform:scale(0.92) translateY(12px);}
+.cs-phone:nth-child(2):hover{transform:scale(0.92) translateY(6px);}
+.cs-phone-screen{
+  background:#0D0D0D;border-radius:17px;
+  overflow:hidden;aspect-ratio:9/19;
+  display:flex;flex-direction:column;
+}
+.cs-notch{
+  height:16px;background:#000;
+  border-radius:0 0 10px 10px;
+  width:44px;margin:0 auto;
+}
+/* tiny screens inside phone */
+.ph-nav{background:#fff;padding:5px 8px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.ph-logo{font-family:'Bebas Neue',sans-serif;font-size:7px;color:#2563EB;}
+.ph-hero{background:#2563EB;padding:8px;flex-shrink:0}
+.ph-hero-t{font-family:'Bebas Neue',sans-serif;font-size:7px;color:white;margin-bottom:3px}
+.ph-search{background:rgba(255,255,255,0.9);border-radius:3px;padding:3px 6px;font-size:5px;color:#94A3B8}
+.ph-chips{display:flex;gap:2px;margin-top:3px}
+.ph-chip{background:rgba(255,255,255,0.18);border-radius:8px;padding:1.5px 4px;font-size:4.5px;color:rgba(255,255,255,0.85)}
+.ph-card{background:#fff;margin:5px 6px 0;border:0.5px solid #E2E8F0;border-radius:6px;padding:5px}
+.ph-card-top{display:flex;align-items:center;gap:3px;margin-bottom:3px}
+.ph-logo-sq{width:14px;height:14px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:5px;font-weight:700}
+.ph-card-t{font-family:'Bebas Neue',sans-serif;font-size:6px;color:#0F172A}
+.ph-card-s{font-size:4.5px;color:#64748B}
+.ph-verified{background:#F0FDF4;color:#15803D;font-size:4px;padding:1px 3px;border-radius:2px}
+.ph-trust{background:#EFF6FF;color:#2563EB;font-size:5px;font-weight:700;padding:1.5px 4px;border-radius:2px}
+.ph-tags{display:flex;gap:2px;margin-bottom:2px}
+.ph-tag{font-size:4px;padding:1px 3px;border-radius:2px;background:#F1F5F9;color:#64748B}
+.ph-tag.m{background:#EFF6FF;color:#2563EB}
+.ph-stip{font-family:'Bebas Neue',sans-serif;font-size:7px;color:#22C55E}
+/* tracker phone */
+.ph-kanban{padding:4px;display:flex;gap:2px;flex:1;overflow:hidden}
+.ph-col{flex:1;background:#0F0F0F;border-radius:3px;padding:3px}
+.ph-col-h{font-size:4px;font-weight:700;color:#555;text-transform:uppercase;margin-bottom:2px}
+.ph-kc{background:#1A1A1A;border:0.5px solid #2A2A2A;border-radius:2px;padding:2.5px;margin-bottom:2px}
+.ph-kc-co{font-size:4.5px;font-weight:600;color:#F0EDE8}
+.ph-kc-r{font-size:4px;color:#555}
+.ph-dot{display:inline-block;width:3px;height:3px;border-radius:50%;margin-right:2px;vertical-align:middle}
+
+/* CONTACT */
+.contact-wrap{
+  padding-top:32px;
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;
+}
+.contact-big{
+  font-family:var(--font-display);
+  font-size:clamp(48px,7vw,88px);
+  line-height:0.92;letter-spacing:0.01em;
+  color:var(--ink);margin-bottom:24px;
+}
+.contact-big span{color:var(--accent);}
+.contact-links{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:32px;
+}
+.contact-link{
+  display:flex;align-items:center;gap:12px;
+  text-decoration:none;color:var(--ink2);
+  font-size:14px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:14px;
+  transition:color 0.2s;
+}
+.contact-link:hover{color:var(--accent);}
+.contact-link-label{
+  font-family:var(--font-mono);font-size:10px;
+  color:var(--ink3);letter-spacing:0.08em;
+  text-transform:uppercase;width:80px;flex-shrink:0;
+}
+.contact-link-val{flex:1;}
+.contact-link-arrow{font-size:12px;color:var(--ink3);transition:transform 0.2s;}
+.contact-link:hover .contact-link-arrow{transform:translate(3px,-3px);color:var(--accent);}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--line);
+  padding:32px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:1100px;margin:0 auto;
+}
+.footer-brand{
+  font-family:var(--font-display);font-size:18px;
+  color:var(--ink3);letter-spacing:0.05em;
+}
+.footer-note{font-size:12px;color:var(--ink3);font-family:var(--font-mono);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity 0.6s ease,transform 0.6s ease;
+}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-d1{transition-delay:0.1s}
+.reveal-d2{transition-delay:0.2s}
+.reveal-d3{transition-delay:0.3s}
+
+/* SCROLL INDICATOR LINE */
+.section-rule{
+  border:none;border-top:1px solid var(--line);
+  margin:0;
+}
+
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links{display:none}
+  .hero{padding:0 20px 48px}
+  section{padding:64px 20px}
+  .about-grid,.projects-grid,.cert-list,.extra-grid,.contact-wrap{grid-template-columns:1fr}
+  .exp-item{grid-template-columns:1fr}
+  .exp-date{display:none}
+  .case-study-banner{grid-template-columns:1fr;padding:40px 20px;margin:0 -20px}
+  .cs-phone-wrap{display:none}
+  .edu-item{grid-template-columns:1fr;gap:4px}
+  .edu-grade{text-align:left}
+  footer{flex-direction:column;gap:10px;padding:24px 20px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+<div id="prog"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">AG<span>.</span></a>
+  <div class="nav-links">
+    <a class="nav-link" href="#about">About</a>
+    <a class="nav-link" href="#experience">Experience</a>
+    <a class="nav-link" href="#projects">Projects</a>
+    <a class="nav-link" href="#casestudy">Case Study</a>
+    <a class="nav-link" href="#contact">Contact</a>
+  </div>
+  <a class="nav-cta" href="mailto:arnavgoel322@gmail.com">Hire me →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-tag">BCA Student · Developer · Designer · Delhi, India</div>
+  <div class="hero-name">
+    ARNAV<br>
+    <span class="outline">GOEL</span>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      <strong>Building real things.</strong> I design and build digital products that balance usability and functionality. With experience in Python, C++, and UI/UX design, I enjoy turning complex problems into simple, user-friendly solutions.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-ghost" href="#projects">View Projects</a>
+      <a class="nav-cta" href="#contact">Let's talk</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <div class="hero-scroll-text">Scroll</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label reveal">About</div>
+  <h2 class="sec-title reveal reveal-d1">WHO I AM</h2>
+  <div class="about-grid">
+    <div class="about-bio reveal reveal-d2">
+      <p>I'm a <strong>2nd-year BCA student at Jagannath Community College, Rohini</strong> - writing code by day, designing interfaces by night. My work lives at the intersection of backend logic and frontend clarity.</p>
+      <p>I've built Python tools from scratch, shipped C++ applications, contributed to a  <strong> Smart India Hackathon </strong> where I worked on React Native for the first time, and completed a UI/UX internship at <strong>Zidio Development</strong>.</p>
+      <p>I believe good software should be honest: clear about what it does, transparent in how it works, and useful without being complicated. That's what I try to build every time.</p>
+      <p><strong>Outside the screen:</strong> I listen to music, watch films, and play sports, activities that keep me balanced and consistently fuel my creativity back at the desk.</p>
+    </div>
+    <div class="about-right reveal reveal-d3">
+      <div class="about-stat">
+        <div class="about-stat-num">4+</div>
+        <div class="about-stat-label">Projects shipped independently</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">2</div>
+        <div class="about-stat-label">Hackathon runner-up awards</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">2</div>
+        <div class="about-stat-label">Internships completed</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">3</div>
+        <div class="about-stat-label">Certifications earned</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- SKILLS -->
+<section id="skills" style="padding-top:64px;padding-bottom:64px">
+  <div class="sec-label reveal">Toolkit</div>
+  <h2 class="sec-title reveal reveal-d1">SKILLS</h2>
+  <div class="skills-full reveal reveal-d2">
+    <div class="skill-row">
+      <div class="skill-cat">Languages</div>
+      <div class="skill-pills">
+        <span class="pill hot">Python</span>
+        <span class="pill hot">C++</span>
+        <span class="pill">Java</span>
+        <span class="pill">PHP</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">Web</div>
+      <div class="skill-pills">
+        <span class="pill hot">HTML / CSS</span>
+        <span class="pill">React JS</span>
+        <span class="pill">Bootstrap</span>
+        <span class="pill">React Native</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">Design</div>
+      <div class="skill-pills">
+        <span class="pill hot">Figma</span>
+        <span class="pill hot">UI/UX Design</span>
+        <span class="pill">Sketch</span>
+        <span class="pill">Adobe Suite</span>
+        <span class="pill">Wireframing</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">Data</div>
+      <div class="skill-pills">
+        <span class="pill">MySQL</span>
+        <span class="pill">MongoDB</span>
+        <span class="pill">BigQuery</span>
+        <span class="pill">Google Cloud</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">Tools</div>
+      <div class="skill-pills">
+        <span class="pill hot">GitHub</span>
+        <span class="pill">Notion</span>
+        <span class="pill">Linux</span>
+        <span class="pill">MS Office</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-label reveal">Work</div>
+  <h2 class="sec-title reveal reveal-d1">EXPERIENCE</h2>
+  <div class="exp-list">
+    <div class="exp-item reveal">
+      <div class="exp-date">Jun 2025 - Aug 2025</div>
+      <div class="exp-content">
+        <div class="exp-role">UI/UX Design Intern</div>
+        <div class="exp-company">Zidio Development</div>
+        <div class="exp-desc">Assisted in UI/UX design, wireframing, and improving user interface layouts for web applications. Worked on real client-facing interfaces under production constraints and delivery timelines.</div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">2025</div>
+      <div class="exp-content">
+        <div class="exp-role">Training Intern: C++ Programming</div>
+        <div class="exp-company">Jagannath University</div>
+        <div class="exp-desc">Developed a C++-based project applying file handling, functions, and object-oriented programming concepts. Completed structured training in systems programming fundamentals.</div>
+      </div>
+    </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-label reveal">Built</div>
+  <h2 class="sec-title reveal reveal-d1">PROJECTS</h2>
+  <p class="sec-sub reveal reveal-d2">Real software. No tutorials. Every project was built independently to solve a concrete problem.</p>
+  <div class="projects-grid reveal reveal-d2">
+     <div class="proj-card">
+      <div class="proj-num">01 / UI/UX</div>
+      <div class="proj-title">TRUST INTERN PLATFORM</div>
+      <div class="proj-desc">Full UX case study: verified internship discovery platform with trust scoring, scam reporting, and Kanban application tracker. Research → IA → hi-fi screens → usability testing.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Figma</span>
+        <span class="proj-tag">UX Research</span>
+        <span class="proj-tag">Prototyping</span>
+        <span class="proj-tag">Design System</span>
+      </div>
+    </div>
+    <a class="proj-card" href="#">
+      <div class="proj-arrow">↗</div>
+      <div class="proj-num">02 / Web</div>
+      <div class="proj-title">PORTFOLIO WEBSITE</div>
+      <div class="proj-desc">Personal portfolio built from scratch using HTML, CSS, and JavaScript. Features custom cursor, scroll animations, card glow effects, and a dark theme, zero frameworks, zero libraries.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">HTML</span>
+        <span class="proj-tag">CSS</span>
+        <span class="proj-tag">JavaScript</span>
+      </div>
+    </a>
+    <a class="proj-card" href="https://github.com/ArnavGoel1/Expense_Tracker" target="_blank">
+      <div class="proj-arrow">↗</div>
+      <div class="proj-num">03 / Python</div>
+      <div class="proj-title">EXPENSE TRACKER</div>
+      <div class="proj-desc">Command-line expense manager with persistent CSV storage, monthly summaries, and JSON export. Zero external libraries, built entirely on Python standard library.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">CSV</span>
+        <span class="proj-tag">JSON</span>
+        <span class="proj-tag">GitHub</span>
+      </div>
+    </a>
+    <a class="proj-card" href="https://github.com/ArnavGoel1/Electricity_Bill_Managemenet_System" target="_blank">
+      <div class="proj-arrow">↗</div>
+      <div class="proj-num">04 / C++</div>
+      <div class="proj-title">ELECTRICITY BILL MANAGER</div>
+      <div class="proj-desc">Desktop C++ application managing customer records and generating electricity bills based on unit consumption. Uses file handling for persistent data storage across sessions.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">C++</span>
+        <span class="proj-tag">File Handling</span>
+        <span class="proj-tag">OOP</span>
+      </div>
+    </a>    
+  </div>
+</section>
+
+<!-- FEATURED CASE STUDY BANNER -->
+<div class="case-study-banner" id="casestudy">
+  <div class="cs-glow"></div>
+  <div>
+    <div class="cs-eyebrow reveal">Featured Case Study</div>
+    <div class="cs-title reveal reveal-d1">TRUST<br><span>INTERN</span></div>
+    <p class="cs-desc reveal reveal-d2">A verified internship platform designed to solve the trust crisis for Indian college students. Full UX process — 20-user research, persona, journey maps, 6-feature design system, hi-fi screens, and usability testing with measurable results.</p>
+    <div class="cs-stats reveal reveal-d2">
+      <div class="cs-stat"><div class="cs-stat-val">75%</div><div class="cs-stat-label">Fear scams</div></div>
+      <div class="cs-stat"><div class="cs-stat-val">92%</div><div class="cs-stat-label">Task completion</div></div>
+      <div class="cs-stat"><div class="cs-stat-val">4.6/5</div><div class="cs-stat-label">Satisfaction score</div></div>
+      <div class="cs-stat"><div class="cs-stat-val">6</div><div class="cs-stat-label">Core features</div></div>
+    </div>
+    <div class="cs-btns reveal reveal-d3">
+      <a class="btn-blue" href="TrustIntern_CaseStudy.html" target="_blank">View Full Case Study ↗</a>
+      <a class="btn-ghost" href="#projects">All Projects</a>
+    </div>
+  </div>
+  <div class="cs-phone-wrap reveal reveal-d2">
+    <!-- Home phone -->
+    <div class="cs-phone">
+      <div class="cs-phone-screen">
+        <div class="cs-notch"></div>
+        <div class="ph-nav"><div class="ph-logo">TrustIntern</div><div style="width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED)"></div></div>
+        <div class="ph-hero">
+          <div class="ph-hero-t">Find trusted internships</div>
+          <div class="ph-search">🔍 UI/UX, Python...</div>
+          <div class="ph-chips"><span class="ph-chip">UI/UX</span><span class="ph-chip">Python</span><span class="ph-chip">Data</span></div>
+        </div>
+        <div style="display:flex;gap:2px;padding:3px 4px;background:#fff;border-bottom:0.5px solid #E2E8F0;flex-shrink:0">
+          <div style="flex:1;text-align:center;background:#F8FAFC;border:0.5px solid #E2E8F0;border-radius:3px;padding:3px 1px"><div style="font-family:'Bebas Neue',sans-serif;font-size:7px;color:#2563EB">2.4k</div><div style="font-size:4px;color:#94A3B8">Verified</div></div>
+          <div style="flex:1;text-align:center;background:#F8FAFC;border:0.5px solid #E2E8F0;border-radius:3px;padding:3px 1px"><div style="font-family:'Bebas Neue',sans-serif;font-size:7px;color:#2563EB">98%</div><div style="font-size:4px;color:#94A3B8">Safe</div></div>
+          <div style="flex:1;text-align:center;background:#F8FAFC;border:0.5px solid #E2E8F0;border-radius:3px;padding:3px 1px"><div style="font-family:'Bebas Neue',sans-serif;font-size:7px;color:#2563EB">840</div><div style="font-size:4px;color:#94A3B8">Cos</div></div>
+        </div>
+        <div class="ph-card">
+          <div class="ph-card-top">
+            <div class="ph-logo-sq" style="background:#EFF6FF;color:#2563EB">GD</div>
+            <div style="flex:1"><div class="ph-card-t">UI/UX Design Intern</div><div style="display:flex;gap:2px;align-items:center"><div class="ph-card-s">GrowthDesk</div><span class="ph-verified">✓</span></div></div>
+            <span class="ph-trust">92</span>
+          </div>
+          <div class="ph-tags"><span class="ph-tag m">Figma</span><span class="ph-tag m">UI/UX</span><span class="ph-tag">Remote</span></div>
+          <div class="ph-stip">₹15,000/mo</div>
+        </div>
+        <div class="ph-card" style="margin-top:3px">
+          <div class="ph-card-top">
+            <div class="ph-logo-sq" style="background:#F0FDF4;color:#16A34A">NS</div>
+            <div style="flex:1"><div class="ph-card-t">Frontend Dev Intern</div><div style="display:flex;gap:2px;align-items:center"><div class="ph-card-s">NexaSoft</div><span class="ph-verified">✓</span></div></div>
+            <span class="ph-trust">88</span>
+          </div>
+          <div class="ph-tags"><span class="ph-tag m">React</span><span class="ph-tag m">JS</span></div>
+          <div class="ph-stip">₹20,000/mo</div>
+        </div>
+      </div>
+    </div>
+    <!-- Tracker phone -->
+    <div class="cs-phone">
+      <div class="cs-phone-screen">
+        <div class="cs-notch"></div>
+        <div class="ph-nav"><div style="font-family:'Bebas Neue',sans-serif;font-size:6px;color:#F0EDE8">Application Tracker</div><div style="font-size:5px;color:#555">5 apps</div></div>
+        <div class="ph-kanban">
+          <div class="ph-col">
+            <div class="ph-col-h">Applied</div>
+            <div class="ph-kc"><div class="ph-kc-co"><span class="ph-dot" style="background:#555"></span>GrowthDesk</div><div class="ph-kc-r">UI/UX</div></div>
+            <div class="ph-kc"><div class="ph-kc-co"><span class="ph-dot" style="background:#555"></span>BuildTech</div><div class="ph-kc-r">Design</div></div>
+          </div>
+          <div class="ph-col">
+            <div class="ph-col-h">Review</div>
+            <div class="ph-kc"><div class="ph-kc-co"><span class="ph-dot" style="background:#F59E0B"></span>NexaSoft</div><div class="ph-kc-r">Frontend</div></div>
+          </div>
+          <div class="ph-col">
+            <div class="ph-col-h">Interview</div>
+            <div class="ph-kc" style="border-color:#1D4ED8"><div class="ph-kc-co"><span class="ph-dot" style="background:#2563EB"></span>DataVault</div><div class="ph-kc-r" style="color:#2563EB">Jun 8 ↗</div></div>
+          </div>
+          <div class="ph-col">
+            <div class="ph-col-h">Offer</div>
+            <div class="ph-kc" style="border-color:#166534"><div class="ph-kc-co"><span class="ph-dot" style="background:#22C55E"></span>InnoWave</div><div class="ph-kc-r" style="color:#22C55E">✓ Got it</div></div>
+          </div>
+        </div>
+        <div style="background:#0D1F0D;border:0.5px solid #166534;border-radius:4px;margin:3px 4px;padding:4px;display:flex;gap:4px;align-items:center">
+          <div style="font-size:9px">🔔</div>
+          <div><div style="font-size:5px;font-weight:600;color:#F0EDE8">Interview reminder</div><div style="font-size:4.5px;color:#555">DataVault · Jun 8 11 AM</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div>
+      <div class="sec-label reveal">Say hello</div>
+      <div class="contact-big reveal reveal-d1">LET'S<br>BUILD<br><span>SOMETHING.</span></div>
+      <p style="font-size:14px;color:var(--ink2);max-width:380px;line-height:1.7" class="reveal reveal-d2">Open to internships, freelance work, collaborations, and interesting problems. I respond within 24 hours.</p>
+    </div>
+    <div class="reveal reveal-d2">
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:arnavgoel322@gmail.com">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-val">arnavgoel322@gmail.com</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a class="contact-link" href="tel:8076258006">
+          <span class="contact-link-label">Phone</span>
+          <span class="contact-link-val">+91 8076258006</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a class="contact-link" href="https://linkedin.com" target="_blank">
+          <span class="contact-link-label">LinkedIn</span>
+          <span class="contact-link-val">linkedin.com/in/arnavgoel</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a class="contact-link" href="https://github.com/arnavgoel322" target="_blank">
+          <span class="contact-link-label">GitHub</span>
+          <span class="contact-link-val">github.com/arnavgoel322</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a class="contact-link" href="TrustIntern_CaseStudy.html" target="_blank">
+          <span class="contact-link-label">Case Study</span>
+          <span class="contact-link-val">TrustIntern - UX Case Study</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">ARNAV GOEL</div>
+  <div class="footer-note">© 2026 · BCA Student · Delhi, India · arnavgoel322@gmail.com</div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function ring(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(ring);})();
+document.querySelectorAll('a,button,.proj-card,.ach-card,.cert-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('hover');curR.classList.add('hover');});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');curR.classList.remove('hover');});
+});
+
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const p=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  document.getElementById('prog').style.width=p+'%';
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Project card mouse gradient
+document.querySelectorAll('.proj-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=((e.clientX-r.left)/r.width*100).toFixed(1);
+    const y=((e.clientY-r.top)/r.height*100).toFixed(1);
+    card.style.setProperty('--mx',x+'%');
+    card.style.setProperty('--my',y+'%');
+  });
+});
+</script>
+</body>
+</html>
