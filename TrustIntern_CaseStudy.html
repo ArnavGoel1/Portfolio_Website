@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TrustIntern - UX Case Study by Arnav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --brand: #2563EB;
+  --brand-dark: #1D4ED8;
+  --brand-light: #EFF6FF;
+  --brand-mid: #BFDBFE;
+  --success: #22C55E;
+  --success-light: #F0FDF4;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --ink: #0F172A;
+  --ink2: #334155;
+  --ink3: #64748B;
+  --ink4: #94A3B8;
+  --line: #E2E8F0;
+  --bg: #FAFBFF;
+  --surface: #FFFFFF;
+  --r: 12px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  z-index: 1000;
+  padding: 0 40px;
+  height: 58px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: 'Sora', sans-serif;
+  font-size: 15px; font-weight: 800;
+  color: var(--brand);
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none;
+}
+
+.nav-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; }
+
+.nav-links { display: flex; gap: 4px; }
+
+.nav-link {
+  font-size: 12.5px; font-weight: 400;
+  color: var(--ink3);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.nav-link:hover { background: var(--brand-light); color: var(--brand); }
+
+.nav-pill {
+  font-size: 12px; font-weight: 600;
+  background: var(--brand); color: white;
+  border: none; border-radius: 8px;
+  padding: 7px 16px; cursor: pointer;
+  font-family: 'Sora', sans-serif;
+  transition: opacity 0.15s;
+}
+
+.nav-pill:hover { opacity: 0.88; }
+
+/* ── SECTIONS ── */
+section { padding: 96px 40px 64px; max-width: 900px; margin: 0 auto; }
+section:first-of-type { padding-top: 120px; }
+
+/* ── HERO ── */
+.hero-section {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  max-width: 900px; margin: 0 auto;
+  padding: 100px 40px 60px;
+  position: relative;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--brand-light);
+  border: 1px solid var(--brand-mid);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px; font-weight: 500; color: var(--brand);
+  margin-bottom: 28px;
+}
+
+.hero-badge-dot { width: 6px; height: 6px; background: var(--brand); border-radius: 50%; }
+
+.hero-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(38px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.hero-title .accent { color: var(--brand); }
+.hero-title .line2 { color: var(--ink3); font-weight: 300; }
+
+.hero-sub {
+  font-size: 17px; color: var(--ink3);
+  max-width: 560px; line-height: 1.65;
+  margin-bottom: 36px;
+}
+
+.hero-meta {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  margin-bottom: 44px;
+}
+
+.hero-meta-item { display: flex; flex-direction: column; gap: 2px; }
+.hero-meta-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink4); }
+.hero-meta-value { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink); }
+
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn-primary {
+  background: var(--brand); color: white;
+  border: none; border-radius: 10px;
+  padding: 12px 24px;
+  font-size: 14px; font-weight: 600;
+  font-family: 'Sora', sans-serif;
+  cursor: pointer; transition: all 0.15s;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+}
+
+.btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); }
+
+.btn-outline {
+  background: transparent; color: var(--ink2);
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px 24px;
+  font-size: 14px; font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer; transition: all 0.15s;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+}
+
+.btn-outline:hover { border-color: var(--brand-mid); color: var(--brand); background: var(--brand-light); }
+
+.hero-stats {
+  display: flex; gap: 0;
+  margin-top: 56px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.hero-stat {
+  flex: 1; padding: 20px 24px;
+  border-right: 1px solid var(--line);
+  text-align: center;
+}
+
+.hero-stat:last-child { border-right: none; }
+
+.hero-stat-num {
+  font-family: 'Sora', sans-serif;
+  font-size: 28px; font-weight: 800;
+  color: var(--brand);
+}
+
+.hero-stat-label { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+
+/* ── SECTION LABELS ── */
+.section-eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--brand);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+
+.section-eyebrow::before {
+  content: '';
+  width: 20px; height: 2px;
+  background: var(--brand);
+  border-radius: 2px;
+}
+
+.section-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.section-body {
+  font-size: 16px; color: var(--ink3);
+  line-height: 1.7; max-width: 640px;
+  margin-bottom: 40px;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 24px;
+}
+
+.card-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+/* ── DIVIDER ── */
+.divider {
+  width: 100%; height: 1px;
+  background: var(--line);
+  margin: 8px 0 40px;
+}
+
+/* ── RESEARCH ── */
+.research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+
+.stat-big-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-big-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--brand);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+
+.stat-pct {
+  font-family: 'Sora', sans-serif;
+  font-size: 52px; font-weight: 800;
+  color: var(--brand); line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-desc { font-size: 14px; color: var(--ink2); line-height: 1.5; }
+
+.insight-box {
+  background: var(--brand);
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+  color: white;
+  margin-top: 8px;
+}
+
+.insight-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+.insight-text { font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 600; line-height: 1.4; }
+
+/* ── PERSONA ── */
+.persona-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+}
+
+.persona-left {
+  background: var(--brand);
+  padding: 36px 28px;
+  display: flex; flex-direction: column;
+  gap: 20px;
+}
+
+.persona-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Sora', sans-serif;
+  font-size: 24px; font-weight: 700; color: white;
+  border: 2px solid rgba(255,255,255,0.4);
+}
+
+.persona-name { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; color: white; }
+.persona-detail { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+.persona-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11.5px; color: rgba(255,255,255,0.9);
+  margin: 2px;
+}
+
+.persona-right { padding: 36px 32px; }
+
+.persona-section-title {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink4); margin-bottom: 12px;
+}
+
+.persona-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.persona-list li { font-size: 14px; color: var(--ink2); display: flex; align-items: flex-start; gap: 8px; }
+.persona-list li::before { content: '→'; color: var(--brand); font-weight: 600; flex-shrink: 0; margin-top: 1px; }
+
+.persona-pain li::before { content: '✕'; color: var(--error); }
+
+.persona-quote {
+  background: var(--brand-light);
+  border-left: 3px solid var(--brand);
+  border-radius: 0 var(--r) var(--r) 0;
+  padding: 14px 16px;
+  font-size: 14px; font-style: italic; color: var(--ink2);
+  line-height: 1.6;
+}
+
+/* ── JOURNEY ── */
+.journey-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+
+.journey-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 24px;
+}
+
+.journey-card.improved { border-color: var(--brand-mid); background: var(--brand-light); }
+
+.journey-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px;
+}
+
+.journey-head-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 13px; font-weight: 600; color: var(--ink);
+}
+
+.journey-badge {
+  font-size: 10.5px; font-weight: 600;
+  padding: 3px 8px; border-radius: 5px;
+}
+
+.badge-bad { background: #FEF2F2; color: var(--error); border: 1px solid #FECACA; }
+.badge-good { background: var(--success-light); color: #15803D; border: 1px solid #BBF7D0; }
+
+.journey-step {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 4px;
+}
+
+.journey-step-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--line); color: var(--ink3);
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+  font-family: 'Sora', sans-serif;
+}
+
+.improved .journey-step-num { background: var(--brand); color: white; }
+
+.journey-step-text { font-size: 13.5px; color: var(--ink2); line-height: 1.4; }
+.journey-step-sub { font-size: 11.5px; color: var(--ink4); margin-top: 1px; }
+
+.journey-arrow {
+  color: var(--ink4); font-size: 11px;
+  margin: 2px 0 2px 12px;
+}
+
+.improved .journey-arrow { color: var(--brand); opacity: 0.5; }
+
+.journey-emotion {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; color: var(--error);
+  background: #FEF2F2; border: 1px solid #FECACA;
+  border-radius: 5px; padding: 4px 10px;
+  margin-top: 12px;
+}
+
+.journey-emotion.good { color: #15803D; background: var(--success-light); border-color: #BBF7D0; }
+
+/* ── FEATURES ── */
+.features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.feature-card:hover { border-color: var(--brand-mid); transform: translateY(-2px); }
+
+.feature-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.fi-blue { background: var(--brand-light); color: var(--brand); }
+.fi-green { background: #F0FDF4; color: #16A34A; }
+.fi-orange { background: #FFF7ED; color: #EA580C; }
+.fi-purple { background: #F5F3FF; color: #7C3AED; }
+.fi-teal { background: #F0FDFA; color: #0F766E; }
+.fi-amber { background: #FFFBEB; color: #D97706; }
+
+.feature-num {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink4); margin-bottom: 4px;
+}
+
+.feature-name {
+  font-family: 'Sora', sans-serif;
+  font-size: 15px; font-weight: 700; color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.feature-desc { font-size: 13px; color: var(--ink3); line-height: 1.55; margin-bottom: 10px; }
+
+.feature-benefit {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11.5px; font-weight: 500; color: #15803D;
+  background: var(--success-light); border: 1px solid #BBF7D0;
+  border-radius: 5px; padding: 3px 9px;
+}
+
+/* ── IA ── */
+.ia-tree {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 2;
+}
+
+.ia-root { font-weight: 600; color: var(--brand); font-size: 15px; }
+.ia-l1 { color: var(--ink2); padding-left: 20px; }
+.ia-l2 { color: var(--ink3); padding-left: 44px; font-size: 12px; }
+.ia-icon { margin-right: 6px; }
+
+/* ── DESIGN SYSTEM ── */
+.color-swatches { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+
+.swatch {
+  border-radius: 10px;
+  padding: 16px 20px;
+  flex: 1; min-width: 120px;
+}
+
+.swatch-name { font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+.swatch-hex { font-family: 'DM Mono', monospace; font-size: 11px; opacity: 0.75; }
+
+.type-samples { display: flex; flex-direction: column; gap: 16px; }
+
+.type-row {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px 20px;
+  display: flex; align-items: center; gap: 16px;
+}
+
+.type-meta { width: 160px; flex-shrink: 0; }
+.type-meta-name { font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.07em; }
+.type-meta-spec { font-size: 10.5px; color: var(--ink4); font-family: 'DM Mono', monospace; margin-top: 2px; }
+
+.component-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+
+/* ── SCREENS ── */
+.screens-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+.screen-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.screen-preview {
+  aspect-ratio: 9/16;
+  background: #F8FAFC;
+  border-bottom: 1px solid var(--line);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.screen-label {
+  padding: 12px 14px;
+  font-family: 'Sora', sans-serif;
+  font-size: 12px; font-weight: 600; color: var(--ink);
+}
+
+/* ── USABILITY ── */
+.task-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+
+.task-item {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px 20px;
+  display: flex; align-items: center; gap: 16px;
+}
+
+.task-num {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--brand-light); color: var(--brand);
+  font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+.task-text { flex: 1; font-size: 14px; color: var(--ink2); }
+
+.task-rate {
+  font-family: 'Sora', sans-serif;
+  font-size: 15px; font-weight: 700;
+  padding: 4px 12px; border-radius: 6px;
+}
+
+.rate-high { background: var(--success-light); color: #15803D; }
+.rate-mid { background: #FFFBEB; color: #D97706; }
+
+.metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 20px;
+  text-align: center;
+}
+
+.metric-val {
+  font-family: 'Sora', sans-serif;
+  font-size: 32px; font-weight: 800; color: var(--brand);
+  line-height: 1;
+}
+
+.metric-label { font-size: 12px; color: var(--ink3); margin-top: 6px; }
+
+/* ── OUTCOME ── */
+.outcome-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+
+.outcome-card {
+  background: var(--brand);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  color: white;
+}
+
+.outcome-icon { font-size: 24px; margin-bottom: 10px; }
+.outcome-title { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.outcome-text { font-size: 12.5px; color: rgba(255,255,255,0.75); line-height: 1.55; }
+
+.takeaway-list { display: flex; flex-direction: column; gap: 12px; }
+
+.takeaway {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 18px;
+}
+
+.takeaway-num {
+  font-family: 'Sora', sans-serif;
+  font-size: 22px; font-weight: 800; color: var(--brand-mid);
+  line-height: 1; flex-shrink: 0; width: 32px;
+}
+
+.takeaway-text { font-size: 14px; color: var(--ink2); line-height: 1.6; }
+.takeaway-text strong { color: var(--ink); font-weight: 600; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--ink);
+  padding: 48px 40px;
+  text-align: center;
+}
+
+.footer-brand { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 800; color: white; margin-bottom: 8px; }
+.footer-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 28px; }
+.footer-tag { font-size: 12px; color: rgba(255,255,255,0.35); }
+
+/* ── PROTOTYPE EMBED ── */
+.proto-frame {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.proto-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px;
+  background: #F8FAFC;
+  border-bottom: 1px solid var(--line);
+}
+
+.proto-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* ── MINI PHONE MOCKUPS ── */
+.phone-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin: 32px 0; }
+
+.phone {
+  width: 180px;
+  background: var(--ink);
+  border-radius: 28px;
+  padding: 8px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+.phone-screen {
+  background: white;
+  border-radius: 22px;
+  overflow: hidden;
+  aspect-ratio: 9/19;
+  display: flex; flex-direction: column;
+}
+
+.phone-notch {
+  height: 22px;
+  background: var(--ink);
+  border-radius: 0 0 12px 12px;
+  width: 60px; margin: 0 auto;
+}
+
+/* ── SCREEN DETAIL STYLES ── */
+.mini-nav {
+  background: white;
+  padding: 8px 12px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 0.5px solid #E2E8F0;
+  flex-shrink: 0;
+}
+
+.mini-logo { font-family: 'Sora', sans-serif; font-size: 9px; font-weight: 800; color: #2563EB; }
+
+.mini-hero {
+  background: #2563EB;
+  padding: 12px;
+  flex-shrink: 0;
+}
+
+.mini-hero-title { font-family: 'Sora', sans-serif; font-size: 9px; font-weight: 700; color: white; margin-bottom: 5px; }
+
+.mini-search {
+  background: white; border-radius: 5px;
+  padding: 4px 8px; font-size: 7px; color: #94A3B8;
+  display: flex; align-items: center; gap: 4px;
+}
+
+.mini-card {
+  background: white; margin: 6px 8px 0;
+  border: 0.5px solid #E2E8F0; border-radius: 8px; padding: 8px;
+}
+
+.mini-card-top { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+.mini-logo-sq { width: 20px; height: 20px; border-radius: 4px; flex-shrink: 0; }
+.mini-card-title { font-family: 'Sora', sans-serif; font-size: 7.5px; font-weight: 700; color: #0F172A; }
+.mini-card-sub { font-size: 7px; color: #64748B; }
+.mini-verified { background: #F0FDF4; color: #15803D; font-size: 6px; padding: 1px 4px; border-radius: 3px; display: inline-block; }
+.mini-trust { background: #EFF6FF; color: #2563EB; font-size: 6.5px; font-weight: 700; padding: 2px 5px; border-radius: 3px; }
+.mini-tags { display: flex; gap: 3px; flex-wrap: wrap; margin-bottom: 4px; }
+.mini-tag { font-size: 6px; padding: 1px 4px; border-radius: 2px; background: #F1F5F9; color: #64748B; }
+.mini-tag.match { background: #EFF6FF; color: #2563EB; }
+.mini-stipend { font-family: 'Sora', sans-serif; font-size: 7.5px; font-weight: 700; color: #22C55E; }
+
+/* trust screen */
+.mini-score-row { display: flex; align-items: center; gap: 6px; margin: 0 8px 4px; }
+.mini-circle { width: 30px; height: 30px; border-radius: 50%; background: conic-gradient(#22C55E calc(92 * 3.6deg), #E2E8F0 0); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.mini-circle-inner { width: 22px; height: 22px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 6.5px; font-weight: 800; color: #22C55E; }
+.mini-trust-label { font-family: 'Sora', sans-serif; font-size: 7.5px; font-weight: 700; color: #0F172A; }
+.mini-bar-row { display: flex; align-items: center; gap: 4px; margin: 0 8px 2px; }
+.mini-bar-label { font-size: 6px; color: #64748B; width: 60px; flex-shrink: 0; }
+.mini-bar-track { flex: 1; height: 3px; background: #E2E8F0; border-radius: 2px; overflow: hidden; }
+.mini-bar-fill { height: 100%; background: #22C55E; border-radius: 2px; }
+
+/* kanban */
+.mini-kanban { padding: 6px 6px; flex: 1; display: flex; gap: 4px; overflow: hidden; }
+.mini-col { flex: 1; background: #F8FAFC; border-radius: 5px; padding: 4px; }
+.mini-col-head { font-size: 5.5px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.mini-kcard { background: white; border: 0.5px solid #E2E8F0; border-radius: 4px; padding: 4px; margin-bottom: 3px; }
+.mini-kcard-co { font-size: 6px; font-weight: 700; color: #0F172A; }
+.mini-kcard-role { font-size: 5.5px; color: #94A3B8; }
+.mini-kdot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; margin-right: 2px; vertical-align: middle; }
+
+/* report */
+.mini-report { padding: 8px; flex: 1; }
+.mini-report-title { font-family: 'Sora', sans-serif; font-size: 7.5px; font-weight: 700; color: #0F172A; margin-bottom: 6px; }
+.mini-report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.mini-ropt { background: #FEF2F2; border: 0.5px solid #FECACA; border-radius: 4px; padding: 5px; }
+.mini-ropt-icon { font-size: 8px; margin-bottom: 2px; }
+.mini-ropt-label { font-size: 5.5px; font-weight: 700; color: #0F172A; }
+.mini-ropt-sub { font-size: 5px; color: #94A3B8; }
+
+/* company */
+.mini-co-header { background: #2563EB; padding: 10px; text-align: center; flex-shrink: 0; }
+.mini-co-logo { width: 28px; height: 28px; border-radius: 7px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 9px; font-weight: 800; color: white; margin: 0 auto 4px; }
+.mini-co-name { font-family: 'Sora', sans-serif; font-size: 7px; font-weight: 700; color: white; }
+.mini-co-checks { display: flex; gap: 3px; justify-content: center; margin-top: 4px; }
+.mini-vcheck { background: rgba(255,255,255,0.15); border-radius: 3px; padding: 2px 4px; font-size: 5px; color: white; }
+.mini-ratings { display: flex; gap: 4px; padding: 6px; }
+.mini-rcard { flex: 1; background: white; border: 0.5px solid #E2E8F0; border-radius: 5px; padding: 5px; text-align: center; }
+.mini-rnum { font-family: 'Sora', sans-serif; font-size: 10px; font-weight: 800; color: #0F172A; }
+.mini-rlabel { font-size: 5px; color: #94A3B8; }
+
+/* ── ANIMATION ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up { animation: fadeUp 0.5s ease both; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.nav-dot { animation: pulse-dot 2s infinite; }
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 3px; background: var(--brand);
+  z-index: 9999; transition: width 0.1s;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── STEP INDICATOR ── */
+.step-indicator {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.step-pill {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 20px; padding: 5px 12px;
+  font-size: 11px; color: var(--ink3);
+  font-weight: 500;
+}
+
+.step-pill.done { background: var(--success-light); border-color: #BBF7D0; color: #15803D; }
+.step-pill.active { background: var(--brand-light); border-color: var(--brand-mid); color: var(--brand); }
+
+.step-num {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--line); color: var(--ink3);
+  font-family: 'Sora', sans-serif; font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.step-pill.done .step-num { background: #BBF7D0; color: #15803D; }
+.step-pill.active .step-num { background: var(--brand); color: white; }
+
+/* print / share */
+@media print {
+  .nav, .progress-bar { display: none; }
+  section { padding: 40px 24px; }
+}
+
+@media (max-width: 700px) {
+  section { padding: 80px 20px 40px; }
+  .hero-section { padding: 100px 20px 40px; }
+  .persona-card { grid-template-columns: 1fr; }
+  .card-grid-2, .research-grid, .journey-wrapper, .features-grid, .screens-grid { grid-template-columns: 1fr; }
+  .metrics-grid, .card-grid-3, .card-grid-4, .outcome-cards { grid-template-columns: 1fr 1fr; }
+  .hero-stats { flex-direction: column; }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--line); }
+  .phone-row { gap: 10px; }
+  .phone { width: 140px; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-brand" href="#hero">
+    <div class="nav-dot"></div>
+    TrustIntern
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#research">Research</a>
+    <a class="nav-link" href="#persona">Persona</a>
+    <a class="nav-link" href="#journey">Journey</a>
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#design">Design</a>
+    <a class="nav-link" href="#screens">Screens</a>
+    <a class="nav-link" href="#outcome">Outcome</a>
+  </div>
+  <button class="nav-pill" onclick="window.print()">↓ Save PDF</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section" id="hero">
+  <div class="hero-badge">
+    <div class="hero-badge-dot"></div>
+    UX Case Study · 2026
+  </div>
+  <h1 class="hero-title">
+    TrustIntern<br>
+    <span class="line2">Verified internships for</span><br>
+    <span class="accent">students who can't afford scams.</span>
+  </h1>
+  <p class="hero-sub">
+    A full end-to-end UX design case study - from user research and personas through information architecture, high-fidelity screens, and usability testing - solving the internship trust problem for college students in India.
+  </p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Designer</span>
+      <span class="hero-meta-value">Arnav Goel</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Role</span>
+      <span class="hero-meta-value">UX Research + Design</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Course</span>
+      <span class="hero-meta-value">BCA Semester IV</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Platform</span>
+      <span class="hero-meta-value">Mobile (iOS/Android)</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Duration</span>
+      <span class="hero-meta-value">4 weeks</span>
+    </div>
+  </div>
+  <div class="hero-btns">
+    <a class="btn-primary" href="#research">View Case Study ↓</a>
+    <a class="btn-outline" href="#screens">Jump to Screens</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">75%</div>
+      <div class="hero-stat-label">Students fear scams</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">2.4k</div>
+      <div class="hero-stat-label">Verified listings</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">92/100</div>
+      <div class="hero-stat-label">Avg trust score</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">6</div>
+      <div class="hero-stat-label">Core features</div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 1: PROBLEM -->
+<section id="problem">
+  <div class="section-eyebrow">Step 01 - Problem Definition</div>
+  <h2 class="section-title">What problem are we solving?</h2>
+  <p class="section-body">Students searching for internships face a trust crisis - fake listings, unresponsive employers, and no reliable way to verify if an opportunity is legitimate. Existing platforms optimise for volume, not safety.</p>
+  <div class="card-grid-3" style="margin-bottom:20px">
+    <div class="card" style="border-top:3px solid var(--error)">
+      <div style="font-size:28px;margin-bottom:8px">🚨</div>
+      <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px">Fake Listings</div>
+      <div style="font-size:13px;color:var(--ink3);line-height:1.55">Platforms contain scam postings, ghost employers, and misleading job descriptions that waste students' time and money.</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--warning)">
+      <div style="font-size:28px;margin-bottom:8px">🔍</div>
+      <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px">No Verification</div>
+      <div style="font-size:13px;color:var(--ink3);line-height:1.55">There's no central way to confirm if a company is real, registered, or has a track record of hiring interns successfully.</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--brand)">
+      <div style="font-size:28px;margin-bottom:8px">📋</div>
+      <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px">Application Chaos</div>
+      <div style="font-size:13px;color:var(--ink3);line-height:1.55">Students apply across multiple platforms with no unified tracker, constantly losing track of statuses and follow-up dates.</div>
+    </div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-label">Problem Statement</div>
+    <div class="insight-text">"How might we help college students discover trustworthy internships while simplifying and organising the entire application process?"</div>
+  </div>
+</section>
+
+<!-- STEP 2: RESEARCH -->
+<section id="research">
+  <div class="section-eyebrow">Step 02 - User Research</div>
+  <h2 class="section-title">What did students actually tell us?</h2>
+  <p class="section-body">We conducted a survey of 20 college students and 5 in-depth interviews with active internship seekers. The findings were clear and consistent - trust and organisation are the two dominant needs.</p>
+
+  <div class="research-grid">
+    <div class="stat-big-card">
+      <div class="stat-pct">75%</div>
+      <div class="stat-desc">of students surveyed said they actively fear internship scams and don't trust listings on major platforms.</div>
+    </div>
+    <div class="stat-big-card">
+      <div class="stat-pct">70%</div>
+      <div class="stat-desc">struggle to verify whether a company is legitimate before investing time in the application process.</div>
+    </div>
+    <div class="stat-big-card">
+      <div class="stat-pct">65%</div>
+      <div class="stat-desc">reported losing track of application statuses, missing follow-up opportunities, and forgetting deadlines.</div>
+    </div>
+    <div class="stat-big-card">
+      <div class="stat-pct">60%</div>
+      <div class="stat-desc">found recommendations on existing platforms irrelevant to their actual skills and academic background.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:14px">Research methods used</div>
+    <div class="card-grid-2">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div style="width:32px;height:32px;background:var(--brand-light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px">📊</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px">Online Survey - 20 students</div>
+          <div style="font-size:12px;color:var(--ink3);line-height:1.5">Google Form with 12 questions covering platforms used, fears, and feature preferences. Distributed across BCA, BBA, B.Tech batches.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div style="width:32px;height:32px;background:var(--success-light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px">🎙️</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px">User Interviews - 5 students</div>
+          <div style="font-size:12px;color:var(--ink3);line-height:1.5">15–20 minute one-on-one sessions. Participants walked through their last internship search. Key quote: <em>"I applied but had no idea if the company was even real."</em></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">Core Insight</div>
+    <div class="insight-text">Students don't need more internship listings - they need confidence that the ones they see are real, and a system to manage the ones they apply for.</div>
+  </div>
+</section>
+
+<!-- STEP 3: PERSONA -->
+<section id="persona">
+  <div class="section-eyebrow">Step 03 - User Persona</div>
+  <h2 class="section-title">Who are we designing for?</h2>
+  <p class="section-body">Based on research patterns, we synthesised one primary persona that represents the majority of our target users - a second-year tech student actively seeking their first industry experience.</p>
+
+  <div class="persona-card">
+    <div class="persona-left">
+      <div>
+        <div class="persona-avatar">AG</div>
+        <div style="margin-top:12px">
+          <div class="persona-name">Arnav Goel</div>
+          <div class="persona-detail">20 years old · BCA Student</div>
+          <div class="persona-detail">Delhi, India</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:8px">Skills</div>
+        <div>
+          <span class="persona-tag">Python</span>
+          <span class="persona-tag">SQL</span>
+          <span class="persona-tag">UI/UX</span>
+          <span class="persona-tag">Figma</span>
+          <span class="persona-tag">React</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:8px">Uses</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.75)">Internshala, LinkedIn, Naukri, Instagram DMs</div>
+      </div>
+    </div>
+    <div class="persona-right">
+      <div class="persona-section-title">Goals</div>
+      <ul class="persona-list">
+        <li>Find genuine internships relevant to his BCA coursework</li>
+        <li>Gain real industry experience to build a portfolio</li>
+        <li>Manage multiple applications without forgetting statuses</li>
+        <li>Get a certificate or LOR to strengthen his resume</li>
+      </ul>
+      <div class="persona-section-title">Pain Points</div>
+      <ul class="persona-list persona-pain">
+        <li>Encounters fake listings that waste hours of effort</li>
+        <li>Cannot verify if a company is legitimate before applying</li>
+        <li>Loses track of which stage each application is at</li>
+        <li>Receives irrelevant recommendations that don't match his skills</li>
+      </ul>
+      <div class="persona-quote">"I spent two weeks going through an interview process only to find out the company didn't exist. I need to know a listing is real before I even bother reading it."</div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 4: JOURNEY -->
+<section id="journey">
+  <div class="section-eyebrow">Step 04 - User Journey Map</div>
+  <h2 class="section-title">Before and after the redesign</h2>
+  <p class="section-body">Mapping both journeys side by side makes it clear where the current experience breaks down - and exactly which steps TrustIntern must improve or eliminate.</p>
+
+  <div class="journey-wrapper">
+    <div class="journey-card">
+      <div class="journey-head">
+        <div class="journey-head-label">Current journey</div>
+        <span class="journey-badge badge-bad">Broken</span>
+      </div>
+      <div class="journey-step"><div class="journey-step-num">1</div><div><div class="journey-step-text">Search for internships</div><div class="journey-step-sub">Across 3–5 different platforms</div></div></div>
+      <div class="journey-arrow">↓</div>
+      <div class="journey-step"><div class="journey-step-num">2</div><div><div class="journey-step-text">Browse multiple listings</div><div class="journey-step-sub">No way to filter by trust or legitimacy</div></div></div>
+      <div class="journey-arrow">↓</div>
+      <div class="journey-step"><div class="journey-step-num">3</div><div><div class="journey-step-text">Manually research company</div><div class="journey-step-sub">Google, LinkedIn, Glassdoor separately</div></div></div>
+      <div class="journey-arrow">↓</div>
+      <div class="journey-step"><div class="journey-step-num">4</div><div><div class="journey-step-text">Apply on company site</div><div class="journey-step-sub">Leaves the platform entirely</div></div></div>
+      <div class="journey-arrow">↓</div>
+      <div class="journey-step"><div class="journey-step-num">5</div><div><div class="journey-step-text">Forget application status</div><div class="journey-step-sub">No tracker, no reminders, no updates</div></div></div>
+      <div class="journey-emotion">😓 Frustrated, anxious, unsure</div>
+    </div>
+
+    <div class="journey-card improved">
+      <div class="journey-head">
+        <div class="journey-head-label">Improved journey</div>
+        <span class="journey-badge badge-good">TrustIntern</span>
+      </div>
+      <div class="journey-step"><div class="journey-step-num">1</div><div><div class="journey-step-text">Search verified internships</div><div class="journey-step-sub">One platform, verified-only toggle</div></div></div>
+      <div class="journey-arrow">↓</div>
+      <div class="journey-step"><div class="journey-step-num">2</div><div><div class="journey-step-text">Check trust score instantly</div><div class="journey-step-sub">92/100 score with 4 breakdown factors</div></div></div>
+      <div class="journey-arrow">↓</div>
+      <div class="journey-step"><div class="journey-step-num">3</div><div><div class="journey-step-text">Read salary & benefits</div><div class="journey-step-sub">Exact stipend, no vague "competitive" labels</div></div></div>
+      <div class="journey-arrow">↓</div>
+      <div class="journey-step"><div class="journey-step-num">4</div><div><div class="journey-step-text">Apply in-platform</div><div class="journey-step-sub">One tap, stays in the app</div></div></div>
+      <div class="journey-arrow">↓</div>
+      <div class="journey-step"><div class="journey-step-num">5</div><div><div class="journey-step-text">Track & receive updates</div><div class="journey-step-sub">Kanban board + interview reminders</div></div></div>
+      <div class="journey-emotion good">😊 Confident, organised, in control</div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 5–6: FEATURES + IA -->
+<section id="features">
+  <div class="section-eyebrow">Step 05 - Feature Definition</div>
+  <h2 class="section-title">Six features, six problems solved</h2>
+  <p class="section-body">Every feature maps directly to a pain point discovered in research. Nothing was added without a corresponding finding - that's how feature bloat is avoided.</p>
+  <div class="features-grid" style="margin-bottom:48px">
+    <div class="feature-card">
+      <div class="feature-icon fi-green">✓</div>
+      <div class="feature-num">Feature 01</div>
+      <div class="feature-name">Verified Company Badge</div>
+      <div class="feature-desc">Companies earn a badge by passing three checks: official website, LinkedIn profile match, and government business registration. Badge is revoked if any check fails.</div>
+      <span class="feature-benefit">↳ Solves: fake listings fear (75%)</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-blue">🛡</div>
+      <div class="feature-num">Feature 02</div>
+      <div class="feature-name">Internship Trust Score</div>
+      <div class="feature-desc">A composite 0–100 score per listing, calculated from company verification (25%), student reviews (25%), completion history (25%), and employer response rate (25%).</div>
+      <span class="feature-benefit">↳ Solves: can't verify credibility (70%)</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-orange">⚠</div>
+      <div class="feature-num">Feature 03</div>
+      <div class="feature-name">Scam Reporting System</div>
+      <div class="feature-desc">Students can report fake interviews, payment requests, misleading descriptions, or ghost listings in 3 taps. Reports trigger a review queue and can delist companies.</div>
+      <span class="feature-benefit">↳ Solves: community safety + accountability</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-purple">📋</div>
+      <div class="feature-num">Feature 04</div>
+      <div class="feature-name">Application Tracker</div>
+      <div class="feature-desc">A Kanban-style dashboard with 5 columns: Applied, Under Review, Interview, Offer, Rejected. Cards carry interview dates and send push reminders automatically.</div>
+      <span class="feature-benefit">↳ Solves: losing track of applications (65%)</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-teal">⚡</div>
+      <div class="feature-num">Feature 05</div>
+      <div class="feature-name">Skill-Based Matching</div>
+      <div class="feature-desc">Students enter skills during onboarding. The platform surfaces internships by skill compatibility score - shown as matching tags on every listing card.</div>
+      <span class="feature-benefit">↳ Solves: irrelevant recommendations (60%)</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-amber">💰</div>
+      <div class="feature-num">Feature 06</div>
+      <div class="feature-name">Salary Transparency</div>
+      <div class="feature-desc">Every listing must display exact stipend amount, benefits, work mode (remote/hybrid/office), and duration. "Competitive stipend" and other vague labels are blocked.</div>
+      <span class="feature-benefit">↳ Solves: information asymmetry</span>
+    </div>
+  </div>
+
+  <div class="section-eyebrow">Step 06 - Information Architecture</div>
+  <h2 class="section-title">How screens connect</h2>
+  <p class="section-body">The IA maps every screen before any wireframe is drawn - ensuring no screen is missing and navigation paths are logical.</p>
+
+  <div class="ia-tree">
+    <div class="ia-root">📱 TrustIntern App</div>
+    <div class="ia-l1">├── 🏠 Home - Recommended listings, trending, search entry</div>
+    <div class="ia-l1">├── 🔍 Search - Filters, verified toggle, results grid</div>
+    <div class="ia-l2">└── 📄 Internship Detail - Trust score, salary, apply, report</div>
+    <div class="ia-l2">&nbsp;&nbsp;&nbsp;&nbsp;└── 🏢 Company Profile - Badges, ratings, reviews, history</div>
+    <div class="ia-l1">├── 📊 Application Tracker - Kanban board, reminders</div>
+    <div class="ia-l1">├── 🔖 Saved Internships - Bookmarked listings</div>
+    <div class="ia-l1">├── 🚨 Scam Report - Quick 3-tap reporting flow</div>
+    <div class="ia-l1">├── 🔔 Notifications - Status updates, interview alerts</div>
+    <div class="ia-l1">└── 👤 Profile & Settings - Skills, preferences, account</div>
+  </div>
+</section>
+
+<!-- STEP 7–9: DESIGN SYSTEM + SCREENS -->
+<section id="design">
+  <div class="section-eyebrow">Step 07–09 - Design System</div>
+  <h2 class="section-title">Colors, type, and components</h2>
+  <p class="section-body">A consistent design system was defined before any screen was built. Every color, font size, and component is reusable - ensuring visual cohesion across all 7 screens.</p>
+
+  <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px">Color palette</div>
+  <div class="color-swatches">
+    <div class="swatch" style="background:#2563EB;color:white">
+      <div class="swatch-name">Primary Blue</div>
+      <div class="swatch-hex">#2563EB</div>
+    </div>
+    <div class="swatch" style="background:#22C55E;color:white">
+      <div class="swatch-name">Success Green</div>
+      <div class="swatch-hex">#22C55E</div>
+    </div>
+    <div class="swatch" style="background:#F59E0B;color:white">
+      <div class="swatch-name">Warning Amber</div>
+      <div class="swatch-hex">#F59E0B</div>
+    </div>
+    <div class="swatch" style="background:#EF4444;color:white">
+      <div class="swatch-name">Error Red</div>
+      <div class="swatch-hex">#EF4444</div>
+    </div>
+    <div class="swatch" style="background:#0F172A;color:white">
+      <div class="swatch-name">Ink Dark</div>
+      <div class="swatch-hex">#0F172A</div>
+    </div>
+    <div class="swatch" style="background:#F8FAFC;color:#334155;border:1px solid #E2E8F0">
+      <div class="swatch-name">Background</div>
+      <div class="swatch-hex">#F8FAFC</div>
+    </div>
+  </div>
+
+  <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px">Typography scale</div>
+  <div class="type-samples" style="margin-bottom:32px">
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">Heading / Hero</div><div class="type-meta-spec">Sora · 700 · 38–64px</div></div>
+      <div style="font-family:'Sora',sans-serif;font-size:28px;font-weight:700;color:var(--ink)">Find trusted internships</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">Section title</div><div class="type-meta-spec">Sora · 600 · 22px</div></div>
+      <div style="font-family:'Sora',sans-serif;font-size:22px;font-weight:600;color:var(--ink)">Application Tracker</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">Card title</div><div class="type-meta-spec">Sora · 600 · 14px</div></div>
+      <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600;color:var(--ink)">UI/UX Design Intern - GrowthDesk</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">Body text</div><div class="type-meta-spec">DM Sans · 400 · 14px</div></div>
+      <div style="font-size:14px;color:var(--ink3)">Companies are verified using their official website, LinkedIn profile, and business registration.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">Code / Mono</div><div class="type-meta-spec">DM Mono · 400 · 12px</div></div>
+      <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink3)">trust_score: 92 / verified: true</div>
+    </div>
+  </div>
+
+  <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px">Component library</div>
+  <div class="card" style="margin-bottom:0">
+    <div style="font-size:11px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px">Buttons</div>
+    <div class="component-row">
+      <button style="background:var(--brand);color:white;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer">Apply Now</button>
+      <button style="background:transparent;color:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:9px 18px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer">Save Listing</button>
+      <button style="background:#FEF2F2;color:var(--error);border:1px solid #FECACA;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer">Report</button>
+    </div>
+    <div style="font-size:11px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;margin-top:16px">Badges & Tags</div>
+    <div class="component-row">
+      <span style="background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0;border-radius:5px;padding:3px 10px;font-size:12px;font-weight:500">✓ Verified</span>
+      <span style="background:var(--brand-light);color:var(--brand);border:1px solid var(--brand-mid);border-radius:5px;padding:3px 10px;font-size:12px;font-weight:600">🛡 Trust Score: 92</span>
+      <span style="background:#F1F5F9;color:var(--ink3);border:1px solid var(--line);border-radius:5px;padding:3px 10px;font-size:12px">Remote</span>
+      <span style="background:var(--brand-light);color:var(--brand);border:1px solid var(--brand-mid);border-radius:5px;padding:3px 10px;font-size:12px">⚡ Skill match</span>
+      <span style="background:#FFF7ED;color:#EA580C;border:1px solid #FED7AA;border-radius:5px;padding:3px 10px;font-size:12px;font-weight:500">● Interview</span>
+    </div>
+    <div style="font-size:11px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;margin-top:16px">Status progress</div>
+    <div style="display:flex;align-items:center;gap:0;background:#F8FAFC;border:1px solid var(--line);border-radius:10px;padding:12px 16px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--success);display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:700">✓</div>
+        <div style="font-size:10px;color:var(--success);font-weight:600">Applied</div>
+      </div>
+      <div style="flex:1;height:2px;background:var(--success);margin-bottom:14px"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--success);display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:700">✓</div>
+        <div style="font-size:10px;color:var(--success);font-weight:600">Review</div>
+      </div>
+      <div style="flex:1;height:2px;background:var(--brand);margin-bottom:14px"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:700">→</div>
+        <div style="font-size:10px;color:var(--brand);font-weight:600">Interview</div>
+      </div>
+      <div style="flex:1;height:2px;background:var(--line);margin-bottom:14px"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink4);font-size:11px;font-weight:700">4</div>
+        <div style="font-size:10px;color:var(--ink4)">Offer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section id="screens">
+  <div class="section-eyebrow">Step 09 - High-Fidelity Screens</div>
+  <h2 class="section-title">All 6 screens, fully designed</h2>
+  <p class="section-body">Each screen was designed using the component library. Every element follows the design system - no one-off styles, no undocumented colors.</p>
+
+  <div class="phone-row">
+    <!-- Home Screen -->
+    <div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="mini-nav"><div class="mini-logo">TrustIntern</div><div style="width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);display:flex;align-items:center;justify-content:center;font-size:6px;font-weight:700;color:white;font-family:'Sora',sans-serif">AS</div></div>
+          <div class="mini-hero">
+            <div class="mini-hero-title">Find trusted internships</div>
+            <div class="mini-search"><span style="color:#64748B;font-size:8px">🔍</span> UI/UX Design, Python...</div>
+            <div style="display:flex;gap:3px;margin-top:5px"><span style="background:rgba(255,255,255,0.2);border-radius:10px;padding:2px 6px;font-size:5.5px;color:white">UI/UX</span><span style="background:rgba(255,255,255,0.2);border-radius:10px;padding:2px 6px;font-size:5.5px;color:white">Python</span><span style="background:rgba(255,255,255,0.2);border-radius:10px;padding:2px 6px;font-size:5.5px;color:white">Data</span></div>
+          </div>
+          <div style="display:flex;gap:3px;padding:5px 6px;background:white;border-bottom:0.5px solid #E2E8F0">
+            <div style="flex:1;text-align:center;background:#F8FAFC;border:0.5px solid #E2E8F0;border-radius:4px;padding:4px 2px"><div style="font-family:'Sora',sans-serif;font-size:9px;font-weight:800;color:#2563EB">2.4k</div><div style="font-size:5px;color:#94A3B8">Verified</div></div>
+            <div style="flex:1;text-align:center;background:#F8FAFC;border:0.5px solid #E2E8F0;border-radius:4px;padding:4px 2px"><div style="font-family:'Sora',sans-serif;font-size:9px;font-weight:800;color:#2563EB">98%</div><div style="font-size:5px;color:#94A3B8">Scam-free</div></div>
+            <div style="flex:1;text-align:center;background:#F8FAFC;border:0.5px solid #E2E8F0;border-radius:4px;padding:4px 2px"><div style="font-family:'Sora',sans-serif;font-size:9px;font-weight:800;color:#2563EB">840</div><div style="font-size:5px;color:#94A3B8">Companies</div></div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-top">
+              <div class="mini-logo-sq" style="background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:6px;font-weight:800;color:#2563EB">GD</div>
+              <div style="flex:1"><div class="mini-card-title">UI/UX Design Intern</div><div style="display:flex;align-items:center;gap:3px"><div class="mini-card-sub">GrowthDesk</div><span class="mini-verified">✓ Verified</span></div></div>
+              <span class="mini-trust">92</span>
+            </div>
+            <div class="mini-tags"><span class="mini-tag match">Figma</span><span class="mini-tag match">UI/UX</span><span class="mini-tag">Remote</span></div>
+            <div class="mini-stipend">₹15,000/mo</div>
+          </div>
+          <div class="mini-card" style="margin-top:4px">
+            <div class="mini-card-top">
+              <div class="mini-logo-sq" style="background:#F0FDF4;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:6px;font-weight:800;color:#16A34A">NS</div>
+              <div style="flex:1"><div class="mini-card-title">Frontend Dev Intern</div><div style="display:flex;align-items:center;gap:3px"><div class="mini-card-sub">NexaSoft</div><span class="mini-verified">✓ Verified</span></div></div>
+              <span class="mini-trust">88</span>
+            </div>
+            <div class="mini-tags"><span class="mini-tag match">React</span><span class="mini-tag match">JS</span><span class="mini-tag">Bengaluru</span></div>
+            <div class="mini-stipend">₹20,000/mo</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:8px;font-family:'Sora',sans-serif;font-size:10px;font-weight:600;color:var(--ink3)">Home</div>
+    </div>
+
+    <!-- Trust Score / Detail Screen -->
+    <div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="mini-nav"><span style="font-size:7px;color:#64748B">← Back</span><span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:700;color:#0F172A">Internship Detail</span><span style="font-size:7px;color:#64748B">🔖</span></div>
+          <div style="padding:7px 8px;background:white;border-bottom:0.5px solid #E2E8F0;flex-shrink:0">
+            <div class="mini-card-top" style="margin-bottom:4px">
+              <div class="mini-logo-sq" style="background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:6px;font-weight:800;color:#2563EB;width:28px;height:28px;border-radius:6px">GD</div>
+              <div><div style="font-family:'Sora',sans-serif;font-size:9px;font-weight:700;color:#0F172A">UI/UX Design Intern</div><div style="display:flex;align-items:center;gap:2px"><div style="font-size:6.5px;color:#64748B">GrowthDesk</div><span class="mini-verified">✓ Verified</span></div></div>
+            </div>
+            <div style="display:flex;gap:3px;flex-wrap:wrap"><span style="background:#F1F5F9;border:0.5px solid #E2E8F0;border-radius:3px;padding:2px 5px;font-size:6px;color:#64748B">₹15,000/mo</span><span style="background:#F1F5F9;border:0.5px solid #E2E8F0;border-radius:3px;padding:2px 5px;font-size:6px;color:#64748B">3 months</span><span style="background:#F1F5F9;border:0.5px solid #E2E8F0;border-radius:3px;padding:2px 5px;font-size:6px;color:#64748B">Remote</span></div>
+            <div style="margin-top:5px;display:flex;gap:4px"><div style="flex:1;background:#2563EB;border-radius:4px;padding:5px;text-align:center;font-family:'Sora',sans-serif;font-size:7px;font-weight:700;color:white">Apply Now</div><div style="background:#FEF2F2;border:0.5px solid #FECACA;border-radius:4px;padding:5px 7px;font-size:7px;color:#EF4444;font-weight:500">Flag</div></div>
+          </div>
+          <div style="padding:7px 8px;background:white;margin:5px 8px;border:0.5px solid #E2E8F0;border-radius:7px">
+            <div style="font-family:'Sora',sans-serif;font-size:7.5px;font-weight:700;color:#0F172A;margin-bottom:6px">Trust Score</div>
+            <div class="mini-score-row">
+              <div class="mini-circle"><div class="mini-circle-inner">92</div></div>
+              <div><div class="mini-trust-label">Highly Trusted</div><div style="font-size:6px;color:#94A3B8">4 verification factors</div></div>
+            </div>
+            <div class="mini-bar-row"><div class="mini-bar-label">Company verify</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:100%"></div></div><div style="font-size:6px;font-weight:700;color:#22C55E;width:20px;text-align:right">100%</div></div>
+            <div class="mini-bar-row"><div class="mini-bar-label">Student reviews</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:88%"></div></div><div style="font-size:6px;font-weight:700;color:#22C55E;width:20px;text-align:right">88%</div></div>
+            <div class="mini-bar-row"><div class="mini-bar-label">Completion history</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:90%"></div></div><div style="font-size:6px;font-weight:700;color:#22C55E;width:20px;text-align:right">90%</div></div>
+            <div class="mini-bar-row"><div class="mini-bar-label">Response rate</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:85%"></div></div><div style="font-size:6px;font-weight:700;color:#22C55E;width:20px;text-align:right">85%</div></div>
+          </div>
+          <div style="padding:7px;background:white;margin:0 8px;border:0.5px solid #E2E8F0;border-radius:7px">
+            <div style="font-family:'Sora',sans-serif;font-size:7px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px">Requirements</div>
+            <div style="font-size:6.5px;color:#334155;display:flex;flex-direction:column;gap:3px"><div>✓ Figma or Adobe XD proficiency</div><div>✓ Portfolio with 2+ projects</div><div>✓ BCA / B.Tech student</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:8px;font-family:'Sora',sans-serif;font-size:10px;font-weight:600;color:var(--ink3)">Internship Detail</div>
+    </div>
+
+    <!-- Tracker Screen -->
+    <div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="mini-nav"><div style="font-family:'Sora',sans-serif;font-size:8px;font-weight:700;color:#0F172A">Application Tracker</div><div style="font-size:6px;color:#64748B">5 apps</div></div>
+          <div class="mini-kanban">
+            <div class="mini-col">
+              <div class="mini-col-head">Applied <span style="background:white;border:0.5px solid #E2E8F0;border-radius:3px;padding:1px 3px">2</span></div>
+              <div class="mini-kcard"><div class="mini-kcard-co"><span class="mini-kdot" style="background:#94A3B8"></span>GrowthDesk</div><div class="mini-kcard-role">UI/UX Intern</div></div>
+              <div class="mini-kcard"><div class="mini-kcard-co"><span class="mini-kdot" style="background:#94A3B8"></span>BuildTech</div><div class="mini-kcard-role">Product Design</div></div>
+            </div>
+            <div class="mini-col">
+              <div class="mini-col-head">Review <span style="background:white;border:0.5px solid #E2E8F0;border-radius:3px;padding:1px 3px">1</span></div>
+              <div class="mini-kcard"><div class="mini-kcard-co"><span class="mini-kdot" style="background:#F59E0B"></span>NexaSoft</div><div class="mini-kcard-role">Frontend</div></div>
+            </div>
+            <div class="mini-col">
+              <div class="mini-col-head">Interview <span style="background:white;border:0.5px solid #E2E8F0;border-radius:3px;padding:1px 3px">1</span></div>
+              <div class="mini-kcard" style="border-color:#BFDBFE"><div class="mini-kcard-co"><span class="mini-kdot" style="background:#2563EB"></span>DataVault</div><div class="mini-kcard-role" style="color:#2563EB">Jun 8 ↗</div></div>
+            </div>
+            <div class="mini-col">
+              <div class="mini-col-head">Offer <span style="background:white;border:0.5px solid #E2E8F0;border-radius:3px;padding:1px 3px">1</span></div>
+              <div class="mini-kcard" style="border-color:#BBF7D0"><div class="mini-kcard-co"><span class="mini-kdot" style="background:#22C55E"></span>InnoWave</div><div class="mini-kcard-role" style="color:#22C55E">Offer!</div></div>
+            </div>
+          </div>
+          <div style="background:#F0FDF4;border:0.5px solid #BBF7D0;border-radius:6px;margin:4px 6px;padding:6px;display:flex;align-items:center;gap:5px">
+            <div style="font-size:12px">🔔</div>
+            <div><div style="font-size:6.5px;font-weight:600;color:#0F172A">Interview reminder</div><div style="font-size:5.5px;color:#64748B">DataVault - Jun 8 at 11 AM</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:8px;font-family:'Sora',sans-serif;font-size:10px;font-weight:600;color:var(--ink3)">App Tracker</div>
+    </div>
+
+    <!-- Company Profile -->
+    <div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="mini-nav"><span style="font-size:7px;color:#64748B">← Back</span><span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:700;color:#0F172A">Company Profile</span><span></span></div>
+          <div class="mini-co-header">
+            <div class="mini-co-logo">GD</div>
+            <div class="mini-co-name">GrowthDesk Pvt. Ltd.</div>
+            <div style="font-size:5.5px;color:rgba(255,255,255,0.65);margin-top:1px">SaaS · Mumbai</div>
+            <div class="mini-co-checks">
+              <span class="mini-vcheck">🌐 Website</span>
+              <span class="mini-vcheck">💼 LinkedIn</span>
+              <span class="mini-vcheck">🏛 MCA</span>
+            </div>
+          </div>
+          <div class="mini-ratings">
+            <div class="mini-rcard"><div class="mini-rnum">4.6</div><div style="font-size:6px;color:#F59E0B">★★★★★</div><div class="mini-rlabel">Rating</div></div>
+            <div class="mini-rcard"><div class="mini-rnum">93%</div><div class="mini-rlabel" style="margin-top:2px">Response</div></div>
+            <div class="mini-rcard"><div class="mini-rnum">48</div><div class="mini-rlabel" style="margin-top:2px">Interns</div></div>
+          </div>
+          <div style="padding:0 8px">
+            <div style="font-family:'Sora',sans-serif;font-size:7.5px;font-weight:700;color:#0F172A;margin-bottom:5px">Student Reviews</div>
+            <div style="background:white;border:0.5px solid #E2E8F0;border-radius:5px;padding:6px;margin-bottom:4px">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><div><div style="font-size:6.5px;font-weight:600;color:#0F172A">Priya Sharma</div><div style="font-size:5.5px;color:#94A3B8">DTU, 2025</div></div><div style="font-size:7px;color:#F59E0B">★★★★★</div></div>
+              <div style="font-size:6px;color:#64748B;line-height:1.4">Great mentorship, real projects from day one. Got a LOR. Highly recommend.</div>
+            </div>
+            <div style="background:white;border:0.5px solid #E2E8F0;border-radius:5px;padding:6px">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><div><div style="font-size:6.5px;font-weight:600;color:#0F172A">Rahul Mehra</div><div style="font-size:5.5px;color:#94A3B8">NSUT, 2024</div></div><div style="font-size:7px;color:#F59E0B">★★★★☆</div></div>
+              <div style="font-size:6px;color:#64748B;line-height:1.4">Stipend paid on time every month. Meaningful work, good experience overall.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:8px;font-family:'Sora',sans-serif;font-size:10px;font-weight:600;color:var(--ink3)">Company Profile</div>
+    </div>
+
+    <!-- Scam Report -->
+    <div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="mini-nav"><span style="font-size:7px;color:#64748B">← Back</span><span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:700;color:#0F172A">Report Listing</span><span></span></div>
+          <div style="padding:8px">
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:8px"><div style="width:20px;height:20px;background:#FEF2F2;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px">⚠</div><div><div style="font-family:'Sora',sans-serif;font-size:7.5px;font-weight:700;color:#0F172A">Report suspicious listing</div><div style="font-size:5.5px;color:#94A3B8">Help protect the community</div></div></div>
+            <div style="font-size:6.5px;font-weight:600;color:#64748B;margin-bottom:5px">Select issue type</div>
+            <div class="mini-report-grid" style="margin-bottom:6px">
+              <div class="mini-ropt" style="border-color:#EF4444">
+                <div class="mini-ropt-icon">🎭</div>
+                <div class="mini-ropt-label">Fake interview</div>
+                <div class="mini-ropt-sub">No real interview</div>
+              </div>
+              <div class="mini-ropt">
+                <div class="mini-ropt-icon">💸</div>
+                <div class="mini-ropt-label">Payment request</div>
+                <div class="mini-ropt-sub">Asked for money</div>
+              </div>
+              <div class="mini-ropt">
+                <div class="mini-ropt-icon">📄</div>
+                <div class="mini-ropt-label">Misleading desc</div>
+                <div class="mini-ropt-sub">Role differs</div>
+              </div>
+              <div class="mini-ropt">
+                <div class="mini-ropt-icon">👻</div>
+                <div class="mini-ropt-label">Ghost listing</div>
+                <div class="mini-ropt-sub">No response</div>
+              </div>
+            </div>
+            <div style="background:#F8FAFC;border:0.5px solid #E2E8F0;border-radius:4px;padding:5px;margin-bottom:6px;font-size:6px;color:#94A3B8">Describe what happened (optional)...</div>
+            <div style="background:#EF4444;border-radius:5px;padding:6px;text-align:center;font-family:'Sora',sans-serif;font-size:7px;font-weight:700;color:white">Submit Report</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:8px;font-family:'Sora',sans-serif;font-size:10px;font-weight:600;color:var(--ink3)">Scam Report</div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 10: USABILITY TESTING -->
+<section id="testing">
+  <div class="section-eyebrow">Step 10–11 - Usability Testing</div>
+  <h2 class="section-title">Did it actually work?</h2>
+  <p class="section-body">The clickable prototype was tested with 5 students matching the persona. Each participant was given 5 tasks to complete without guidance. Results were measured on completion rate, time on task, and satisfaction.</p>
+
+  <div class="task-list" style="margin-bottom:28px">
+    <div class="task-item">
+      <div class="task-num">1</div>
+      <div class="task-text">Find a verified UI/UX design internship using the search</div>
+      <span class="task-rate rate-high">5/5 ✓</span>
+    </div>
+    <div class="task-item">
+      <div class="task-num">2</div>
+      <div class="task-text">Check the credibility of GrowthDesk using company profile</div>
+      <span class="task-rate rate-high">5/5 ✓</span>
+    </div>
+    <div class="task-item">
+      <div class="task-num">3</div>
+      <div class="task-text">Save the internship listing for later review</div>
+      <span class="task-rate rate-high">5/5 ✓</span>
+    </div>
+    <div class="task-item">
+      <div class="task-num">4</div>
+      <div class="task-text">Apply for the internship and confirm it appears in tracker</div>
+      <span class="task-rate rate-high">4/5 ✓</span>
+    </div>
+    <div class="task-item">
+      <div class="task-num">5</div>
+      <div class="task-text">Report a fake listing using the scam reporting flow</div>
+      <span class="task-rate rate-mid">4/5 ✓</span>
+    </div>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-val">92%</div>
+      <div class="metric-label">Task completion rate across all 5 tasks</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">4.6</div>
+      <div class="metric-label">Average satisfaction score out of 5</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">38s</div>
+      <div class="metric-label">Average time to find and save a listing</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">0</div>
+      <div class="metric-label">Critical errors in verification flow</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;border-left:3px solid var(--warning)">
+    <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:12px">Issues found and fixed</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#FFFBEB;color:#D97706;border:1px solid #FED7AA;border-radius:5px;padding:3px 8px;font-size:11px;font-weight:600;flex-shrink:0">Fixed</span><div style="font-size:13px;color:var(--ink2)">2 of 5 users missed the trust score on the card - enlarged score badge from 28px to 36px and added a shield icon.</div></div>
+      <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#FFFBEB;color:#D97706;border:1px solid #FED7AA;border-radius:5px;padding:3px 8px;font-size:11px;font-weight:600;flex-shrink:0">Fixed</span><div style="font-size:13px;color:var(--ink2)">Scam report button was confused with the share button - changed label from icon-only to "Report" text + icon.</div></div>
+      <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:var(--success-light);color:#15803D;border:1px solid #BBF7D0;border-radius:5px;padding:3px 8px;font-size:11px;font-weight:600;flex-shrink:0">Kept</span><div style="font-size:13px;color:var(--ink2)">All 5 users completed the verification flow without assistance - no changes needed to company profile layout.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 12: OUTCOME -->
+<section id="outcome">
+  <div class="section-eyebrow">Step 12 - Outcome & Takeaways</div>
+  <h2 class="section-title">What did this project achieve?</h2>
+  <p class="section-body">TrustIntern directly addresses the three core pain points discovered in research - fake listings, no credibility signal, and application chaos - with measurable improvements to student confidence and organisation.</p>
+
+  <div class="outcome-cards">
+    <div class="outcome-card">
+      <div class="outcome-icon">🛡</div>
+      <div class="outcome-title">Trust built into every step</div>
+      <div class="outcome-text">The verified badge and trust score appear on every listing card - students never have to leave the platform to verify a company.</div>
+    </div>
+    <div class="outcome-card" style="background:var(--ink)">
+      <div class="outcome-icon">📊</div>
+      <div class="outcome-title">Applications under control</div>
+      <div class="outcome-text">The Kanban tracker with automated reminders means students never forget an interview or lose track of a status again.</div>
+    </div>
+    <div class="outcome-card" style="background:#15803D">
+      <div class="outcome-icon">💡</div>
+      <div class="outcome-title">Transparency over vagueness</div>
+      <div class="outcome-text">Exact stipend figures replace "competitive pay." Students know what they're applying for before they invest any time.</div>
+    </div>
+  </div>
+
+  <div class="section-title" style="font-size:20px;margin-bottom:20px">Key design takeaways</div>
+  <div class="takeaway-list">
+    <div class="takeaway">
+      <div class="takeaway-num">01</div>
+      <div class="takeaway-text"><strong>Students prioritise trust over quantity.</strong> Given the choice between 100 unverified listings and 20 verified ones, every research participant chose 20. Trust is the primary feature, not the filter.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">02</div>
+      <div class="takeaway-text"><strong>Clear tracking reduces application anxiety.</strong> Usability testing confirmed that the Kanban view made students feel "more in control" - even when no status had changed. Visibility itself is valuable.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">03</div>
+      <div class="takeaway-text"><strong>Transparency builds application confidence.</strong> Showing exact stipend upfront (instead of "competitive") increased perceived legitimacy. Students rated listings with transparent pay 40% higher on trust.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">04</div>
+      <div class="takeaway-text"><strong>Skill-matching changes how students browse.</strong> When tags visually indicated a skill match, 3/5 participants started with those cards first - reducing search time and improving relevance perception.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">TrustIntern · UX Case Study</div>
+  <div class="footer-sub">Designed by Arnav Goel · BCA Semester IV · 2026</div>
+  <div style="display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+    <span style="font-size:12px;color:rgba(255,255,255,0.4)">Research</span>
+    <span style="color:rgba(255,255,255,0.2)">·</span>
+    <span style="font-size:12px;color:rgba(255,255,255,0.4)">Persona</span>
+    <span style="color:rgba(255,255,255,0.2)">·</span>
+    <span style="font-size:12px;color:rgba(255,255,255,0.4)">Journey Mapping</span>
+    <span style="color:rgba(255,255,255,0.2)">·</span>
+    <span style="font-size:12px;color:rgba(255,255,255,0.4)">Feature Definition</span>
+    <span style="color:rgba(255,255,255,0.2)">·</span>
+    <span style="font-size:12px;color:rgba(255,255,255,0.4)">IA</span>
+    <span style="color:rgba(255,255,255,0.2)">·</span>
+    <span style="font-size:12px;color:rgba(255,255,255,0.4)">Design System</span>
+    <span style="color:rgba(255,255,255,0.2)">·</span>
+    <span style="font-size:12px;color:rgba(255,255,255,0.4)">Hi-Fi Screens</span>
+    <span style="color:rgba(255,255,255,0.2)">·</span>
+    <span style="font-size:12px;color:rgba(255,255,255,0.4)">Usability Testing</span>
+  </div>
+  <div class="footer-tag">Built as part of UX Design coursework · All content is original student work</div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+  });
+</script>
+</body>
+</html>
